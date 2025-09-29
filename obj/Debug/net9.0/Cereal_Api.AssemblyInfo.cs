@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Cereal_Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6ff4817da3450a905e517caa79bb095c53240279")]
 [assembly: System.Reflection.AssemblyProductAttribute("Cereal_Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Cereal_Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
