@@ -4,11 +4,11 @@ using Cereal_Api.Models.DTO;
 
 namespace Cereal_Api.Helpers
 {
-    public static class CerealHelper
+    public static class ProductHelper
     {
-        public static IQueryable<CerealDTO> ApplyFilter(IQueryable<CerealDTO> query, Filter filter)
+        public static IQueryable<ProductDTO> ApplyFilter(IQueryable<ProductDTO> query, Filter filter)
         {
-            var parameter = Expression.Parameter(typeof(CerealDTO), "x");
+            var parameter = Expression.Parameter(typeof(ProductDTO), "x");
             var property = Expression.PropertyOrField(parameter, filter.Field);
 
             // Convert value to property type
@@ -38,28 +38,30 @@ namespace Cereal_Api.Helpers
                     comparison = Expression.LessThanOrEqual(property, constant);
                     break;
                 case "contains":
-                    comparison = Expression.Call(property,
-                        typeof(string).GetMethod("Contains", new[] { typeof(string) }),
-                        constant);
+                    var methodInfo = typeof(string).GetMethod("Contains", new[] { typeof(string) });
+                    if (methodInfo == null)
+                        throw new InvalidOperationException("Could not find 'string.Contains(string)' method.");
+
+                    comparison = Expression.Call(property, methodInfo, constant);
                     break;
                 default:
                     throw new NotSupportedException($"Operator {filter.Operator} not supported");
             }
 
-            var lambda = Expression.Lambda<Func<CerealDTO, bool>>(comparison, parameter);
+            var lambda = Expression.Lambda<Func<ProductDTO, bool>>(comparison, parameter);
             return query.Where(lambda);
         }
 
-        public static Cereal? MapCerealFromDTO(this CerealDTO dto)
+        public static Product? MapProductFromDTO(this ProductDTO dto)
         {
             if (dto == null) return null;
 
-            return new Cereal
+            return new Product
             {
-                Id = dto.Id.Value,
-                Name = dto.Name,
-                MFR = dto.MFR,
-                Type = dto.Type,
+                Id = dto.Id.GetValueOrDefault(),
+                Name = dto.Name ?? "",
+                MFR = dto.MFR ?? "",
+                Type = dto.Type ?? "",
                 Calories = dto.Calories.GetValueOrDefault(),
                 Protein = dto.Protein.GetValueOrDefault(),
                 Fat = dto.Fat.GetValueOrDefault(),
@@ -76,11 +78,11 @@ namespace Cereal_Api.Helpers
             };
         }
 
-        public static CerealDTO? MapDTOForCRUD(this CerealUpdateDTO dto)
+        public static ProductDTO? MapDTOForCRUD(this ProductUpdateDTO dto)
         {
             if (dto == null) return null;
 
-            return new CerealDTO
+            return new ProductDTO
             {
                 Id = dto.Id,
                 Name = dto.Name,
@@ -102,11 +104,11 @@ namespace Cereal_Api.Helpers
             };
         }
 
-        public static IEnumerable<CerealDTO?> MapDTOForCRUDList(this IEnumerable<CerealUpdateDTO> dtoList)
+        public static IEnumerable<ProductDTO?> MapDTOForCRUDList(this IEnumerable<ProductUpdateDTO> dtoList)
         {
-            List<CerealDTO> result = new List<CerealDTO>();
+            List<ProductDTO> result = new List<ProductDTO>();
 
-            foreach (CerealUpdateDTO item in dtoList)
+            foreach (ProductUpdateDTO item in dtoList)
             {
                 var resultItem = MapDTOForCRUD(item);
                 if (resultItem != null) result.Add(resultItem);

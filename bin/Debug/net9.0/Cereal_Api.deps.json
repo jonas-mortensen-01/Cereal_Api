@@ -9,7 +9,8 @@
       "Cereal_Api/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.OpenApi": "9.0.9",
-          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.9"
+          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.9",
+          "Scalar.AspNetCore": "2.8.8"
         },
         "runtime": {
           "Cereal_Api.dll": {}
@@ -410,6 +411,14 @@
             "assetType": "runtime",
             "assemblyVersion": "6.0.0.0",
             "fileVersion": "6.0.21.52210"
+          }
+        }
+      },
+      "Scalar.AspNetCore/2.8.8": {
+        "runtime": {
+          "lib/net9.0/Scalar.AspNetCore.dll": {
+            "assemblyVersion": "2.8.8.0",
+            "fileVersion": "2.8.8.0"
           }
         }
       },
@@ -838,6 +847,13 @@
       "sha512": "sha512-hqTM5628jSsQiv+HGpiq3WKBl2c8v1KZfby2J6Pr7pEPlK9waPdgEO6b8A/+/xn/yZ9ulv8HuqK71ONy2tg67A==",
       "path": "microsoft.win32.systemevents/6.0.0",
       "hashPath": "microsoft.win32.systemevents.6.0.0.nupkg.sha512"
+    },
+    "Scalar.AspNetCore/2.8.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vH0jv2n8BqPUNDa9+j60259r1rdqhYK/bVPFnhxhQG8e9E1vsXG+rtD1vIBKl6TwnSfn8I5APgttRTEP4f221g==",
+      "path": "scalar.aspnetcore/2.8.8",
+      "hashPath": "scalar.aspnetcore.2.8.8.nupkg.sha512"
     },
     "System.ClientModel/1.0.0": {
       "type": "package",

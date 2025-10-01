@@ -9,41 +9,41 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cereal_Api.Repositories
 {
-    public class CerealRepository : ICerealRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public CerealRepository(ApplicationDbContext context)
+        public ProductRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<CerealDTO>> GetAsync(FilterRequest request, Guid? id = null)
+        public async Task<IEnumerable<ProductDTO>> GetAsync(FilterRequest request, Guid? id = null)
         {
             if (id != null)
             {
-                var result = _context.CerealTable.Where(c => c.Id == id);
+                var result = _context.ProductTable.Where(c => c.Id == id);
                 return result;
             }
             else
             {
-                var query = _context.CerealTable.AsQueryable();
+                var query = _context.ProductTable.AsQueryable();
 
                 foreach (var filter in request.Filters)
                 {
-                    query = CerealHelper.ApplyFilter(query, filter);
+                    query = ProductHelper.ApplyFilter(query, filter);
                 }
 
                 return await query.ToListAsync();
             }
         }
 
-        // Creates new row based of a CerealDTO instance
-        public async Task<OperationResult> CreateAsync(IEnumerable<CerealUpdateDTO> toCreate)
+        // Creates new row based of a ProductDTO instance
+        public async Task<OperationResult> CreateAsync(IEnumerable<ProductUpdateDTO> toCreate)
         {
-            var mappedEntities = CerealHelper.MapDTOForCRUDList(toCreate).ToList();
+            var mappedEntities = ProductHelper.MapDTOForCRUDList(toCreate).ToList();
 
-            _context.CerealTable.AddRange(mappedEntities.Where(x => x != null)!);
+            _context.ProductTable.AddRange(mappedEntities.Where(x => x != null)!);
             var affected = await _context.SaveChangesAsync();
 
             return new OperationResult
@@ -55,13 +55,13 @@ namespace Cereal_Api.Repositories
         }
 
         // Updates rows based on id
-        public async Task<OperationResult> UpdateAsync(IEnumerable<CerealUpdateDTO> toUpdate)
+        public async Task<OperationResult> UpdateAsync(IEnumerable<ProductUpdateDTO> toUpdate)
         {
             foreach (var dto in toUpdate)
             {
                 if (dto.Id == null) continue; // skip if no Id
 
-                var existing = await _context.CerealTable.FindAsync(dto.Id.Value);
+                var existing = await _context.ProductTable.FindAsync(dto.Id.Value);
                 if (existing != null)
                 {
                     // Map only non-null values from DTO
@@ -97,11 +97,11 @@ namespace Cereal_Api.Repositories
         // Deletes rows based on list of id's or names
         public async Task<OperationResult> DeleteAsync(IEnumerable<Guid> toDelete)
         {
-            var items = _context.CerealTable
+            var items = _context.ProductTable
                 .Where(c => c.Id.HasValue && toDelete.Contains(c.Id.Value))
                 .ToList();
 
-            _context.CerealTable.RemoveRange(items);
+            _context.ProductTable.RemoveRange(items);
             await _context.SaveChangesAsync();
 
             var affected = await _context.SaveChangesAsync();

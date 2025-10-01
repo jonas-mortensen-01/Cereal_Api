@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 
 namespace Cereal_Api.Models.DTO {
-    public class CerealDTO
+    // Seperate model used for updating rows in dataset
+    // Needed if the updates should contain less or more fields based on the requirements for the creation or update of the row    
+    public class ProductUpdateDTO
     {
         public Guid? Id { get; set; }
         public string? Name { get; set; }
@@ -23,5 +25,6 @@ namespace Cereal_Api.Models.DTO {
         public double? Weight { get; set; }
         public double? Cups { get; set; }
         public double? Rating { get; set; }
+        public bool? Delete { get; set; }
     }
 }

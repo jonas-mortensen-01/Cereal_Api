@@ -596,6 +596,22 @@
           }
         }
       },
+      "Scalar.AspNetCore/2.8.8": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/Scalar.AspNetCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Scalar.AspNetCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -1908,6 +1924,25 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "Scalar.AspNetCore/2.8.8": {
+      "sha512": "vH0jv2n8BqPUNDa9+j60259r1rdqhYK/bVPFnhxhQG8e9E1vsXG+rtD1vIBKl6TwnSfn8I5APgttRTEP4f221g==",
+      "type": "package",
+      "path": "scalar.aspnetcore/2.8.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net10.0/Scalar.AspNetCore.dll",
+        "lib/net10.0/Scalar.AspNetCore.xml",
+        "lib/net8.0/Scalar.AspNetCore.dll",
+        "lib/net8.0/Scalar.AspNetCore.xml",
+        "lib/net9.0/Scalar.AspNetCore.dll",
+        "lib/net9.0/Scalar.AspNetCore.xml",
+        "scalar.aspnetcore.2.8.8.nupkg.sha512",
+        "scalar.aspnetcore.nuspec"
+      ]
+    },
     "System.ClientModel/1.0.0": {
       "sha512": "I3CVkvxeqFYjIVEP59DnjbeoGNfo/+SZrCLpRz2v/g0gpCHaEMPtWSY0s9k/7jR1rAsLNg2z2u1JRB76tPjnIw==",
       "type": "package",
@@ -2806,7 +2841,8 @@
   "projectFileDependencyGroups": {
     "net9.0": [
       "Microsoft.AspNetCore.OpenApi >= 9.0.9",
-      "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.9"
+      "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.9",
+      "Scalar.AspNetCore >= 2.8.8"
     ]
   },
   "packageFolders": {
@@ -2866,6 +2902,10 @@
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
             "version": "[9.0.9, )"
+          },
+          "Scalar.AspNetCore": {
+            "target": "Package",
+            "version": "[2.8.8, )"
           }
         },
         "imports": [

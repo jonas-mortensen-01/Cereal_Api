@@ -12,6 +12,6 @@ namespace Cereal_Api.Data
         {
         }
 
-        public DbSet<CerealDTO> CerealTable { get; set; }
+        public DbSet<ProductDTO> ProductTable { get; set; }
     }
 }

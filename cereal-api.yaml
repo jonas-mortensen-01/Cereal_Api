@@ -1,0 +1,123 @@
+openapi: 3.0.3
+info:
+  title: Cereal API
+  description: API for managing cereals
+  version: 1.0.0
+servers:
+  - url: https://api.yourdomain.com
+paths:
+  /cereals:
+    get:
+      summary: Get all cereals
+      description: Returns a list of all cereals
+      responses:
+        '200':
+          description: A list of cereals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cereal'
+      security:
+        - ApiKeyAuth: []
+    post:
+      summary: Add a new cereal
+      description: Creates a new cereal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cereal'
+      responses:
+        '201':
+          description: Cereal created
+      security:
+        - ApiKeyAuth: []
+  /cereals/{id}:
+    get:
+      summary: Get cereal by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: A single cereal
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cereal'
+        '404':
+          description: Cereal not found
+      security:
+        - ApiKeyAuth: []
+    put:
+      summary: Update a cereal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cereal'
+      responses:
+        '200':
+          description: Cereal updated
+        '404':
+          description: Cereal not found
+      security:
+        - ApiKeyAuth: []
+    delete:
+      summary: Delete a cereal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Cereal deleted
+        '404':
+          description: Cereal not found
+      security:
+        - ApiKeyAuth: []
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+  schemas:
+    Cereal:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        calories:
+          type: integer
+      required:
+        - name
+        - calories
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY

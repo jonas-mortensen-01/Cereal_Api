@@ -5,16 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cereal_Api.Repositories
 {
-    public interface ICerealRepository
+    public interface IProductRepository
     {
         // Retrieves the entire dataset or a single row if an id is passed
-        Task<IEnumerable<CerealDTO>> GetAsync(FilterRequest request, Guid? id = null);
+        Task<IEnumerable<ProductDTO>> GetAsync(FilterRequest request, Guid? id = null);
 
         // Creates new row based of a CerealDTO instance
-        Task<OperationResult> CreateAsync(IEnumerable<CerealUpdateDTO> toCreate);
+        Task<OperationResult> CreateAsync(IEnumerable<ProductUpdateDTO> toCreate);
 
         // Updates rows based on id
-        Task<OperationResult> UpdateAsync(IEnumerable<CerealUpdateDTO> toUpdate);
+        Task<OperationResult> UpdateAsync(IEnumerable<ProductUpdateDTO> toUpdate);
 
         // Deletes rows based on list of id's or names
         Task<OperationResult> DeleteAsync(IEnumerable<Guid> toDelete);

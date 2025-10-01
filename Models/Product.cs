@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Cereal_Api.Models {
-    public class Cereal {
+namespace Cereal_Api.Models
+{
+    public class Product
+    {
         public Guid? Id { get; set; }
-        public string Name { get; set; }
-        public string MFR { get; set; }
-        public string Type { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string MFR { get; set; } = string.Empty;
+        public string Type { get; set; } = string.Empty;
         public int Calories { get; set; }
         public int Protein { get; set; }
         public int Fat { get; set; }

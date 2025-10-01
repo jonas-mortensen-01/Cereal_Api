@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
+
 public class ApiKeyMiddleware
 {
     private readonly RequestDelegate _next;
@@ -7,18 +11,29 @@ public class ApiKeyMiddleware
     public ApiKeyMiddleware(RequestDelegate next, IConfiguration configuration)
     {
         _next = next;
-        _apiKey = configuration.GetValue<string>("ApiSettings:ApiKey") ?? "";
+        _apiKey = configuration.GetValue<string>("ApiSettings:ApiKey") ?? string.Empty;
     }
 
     public async Task InvokeAsync(HttpContext context)
     {
-        if (_apiKey == "" || !context.Request.Headers.TryGetValue(APIKEY_HEADER_NAME, out var extractedApiKey))
+        // Skip middleware for Swagger and Scalar docs
+        if (context.Request.Path.StartsWithSegments("/docs") ||
+            context.Request.Path.StartsWithSegments("/swagger") ||
+            context.Request.Path.StartsWithSegments("/openapi"))
+        {
+            await _next(context);
+            return;
+        }
+
+        // Check for API key in headers
+        if (!context.Request.Headers.TryGetValue(APIKEY_HEADER_NAME, out var extractedApiKey))
         {
             context.Response.StatusCode = 401; // Unauthorized
             await context.Response.WriteAsync("API Key was not provided.");
             return;
         }
 
+        // Validate API key
         if (!_apiKey.Equals(extractedApiKey))
         {
             context.Response.StatusCode = 403; // Forbidden
@@ -26,6 +41,7 @@ public class ApiKeyMiddleware
             return;
         }
 
-        await _next(context); // Key is valid, continue
+        // Key is valid, continue
+        await _next(context);
     }
 }

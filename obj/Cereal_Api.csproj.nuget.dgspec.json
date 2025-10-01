@@ -57,6 +57,10 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[9.0.9, )"
+            },
+            "Scalar.AspNetCore": {
+              "target": "Package",
+              "version": "[2.8.8, )"
             }
           },
           "imports": [
