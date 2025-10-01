@@ -44,4 +44,4 @@ Migrations/
 
 # Ignore appsettings secrets
 appsettings.Development.json
-appsettings.*.json
+appsettings.json
