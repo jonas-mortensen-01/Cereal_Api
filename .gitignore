@@ -41,3 +41,7 @@ publish/
 
 # Entity Framework Migrations
 Migrations/
+
+# Ignore appsettings secrets
+appsettings.Development.json
+appsettings.*.json
