@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cereal_Api.Models.DTO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cereal_Api.Repositories
 {
     public interface ICerealRepository
     {
-        // Retrieves the entire dataset
-        Task<IEnumerable<CerealDTO>> GetAllAsync();
+        // Retrieves the entire dataset or a single row if an id is passed
+        Task<IEnumerable<CerealDTO>> GetAsync(FilterRequest request, Guid? id = null);
 
         // Creates new row based of a CerealDTO instance
         Task<OperationResult> CreateAsync(IEnumerable<CerealUpdateDTO> toCreate);

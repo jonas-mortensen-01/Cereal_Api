@@ -20,10 +20,13 @@ namespace MyApi.Controllers
             _repository = repository;
         }
 
-        [HttpGet("getall")]
-        public async Task<ActionResult<IEnumerable<CerealDTO>>> GetAllCereals()
+        // Get endpoint has been set to post for the reasons
+        // body json parameters can't be used on get requests
+        // post requests allow this and in turn lets us make dynamic filtering using the function displayed below
+        [HttpPost("get")]
+        public async Task<ActionResult<IEnumerable<CerealDTO>>> GetCereals([FromBody] FilterRequest request, Guid? id = null)
         {
-            var cereals = await _repository.GetAllAsync();
+            var cereals = await _repository.GetAsync(request, id);
             return Ok(cereals);
         }
 

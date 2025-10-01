@@ -5,6 +5,7 @@ using Cereal_Api.Models.DTO;
 using Cereal_Api.Data;
 using Cereal_Api.Helpers;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cereal_Api.Repositories
 {
@@ -17,16 +18,30 @@ namespace Cereal_Api.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<CerealDTO>> GetAllAsync()
+        public async Task<IEnumerable<CerealDTO>> GetAsync(FilterRequest request, Guid? id = null)
         {
-            var result = await _context.CerealTable.ToListAsync<CerealDTO>();
-            return result;
+            if (id != null)
+            {
+                var result = _context.CerealTable.Where(c => c.Id == id);
+                return result;
+            }
+            else
+            {
+                var query = _context.CerealTable.AsQueryable();
+
+                foreach (var filter in request.Filters)
+                {
+                    query = CerealHelper.ApplyFilter(query, filter);
+                }
+
+                return await query.ToListAsync();
+            }
         }
 
         // Creates new row based of a CerealDTO instance
         public async Task<OperationResult> CreateAsync(IEnumerable<CerealUpdateDTO> toCreate)
         {
-            var mappedEntities = CerealMapper.MapDTOForCRUDList(toCreate).ToList();
+            var mappedEntities = CerealHelper.MapDTOForCRUDList(toCreate).ToList();
 
             _context.CerealTable.AddRange(mappedEntities.Where(x => x != null)!);
             var affected = await _context.SaveChangesAsync();
