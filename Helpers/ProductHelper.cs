@@ -104,6 +104,7 @@ namespace Cereal_Api.Helpers
             };
         }
 
+        // Maps a list of ProductDTO model from a list of ProductUpdateDTO
         public static IEnumerable<ProductDTO?> MapDTOForCRUDList(this IEnumerable<ProductUpdateDTO> dtoList)
         {
             List<ProductDTO> result = new List<ProductDTO>();
