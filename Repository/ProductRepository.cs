@@ -24,7 +24,7 @@ namespace Cereal_Api.Repositories
         // Gets a product by id if no id is passed it gets all products
         // Request is filters wrapped for easier understanding when creating the json to pass in the request
         // Filters work dynamically meaning they are defined by the database and what fields are available not the code
-        public async Task<IEnumerable<ProductDTO>> GetAsync(RequestContext request, Guid? id = null)
+        public async Task<IEnumerable<ProductDTO>> GetAsync(RequestContext? request, Guid? id = null)
         {
             if (id != null)
             {
@@ -35,15 +35,24 @@ namespace Cereal_Api.Repositories
             {
                 var query = _context.ProductTable.AsQueryable();
 
-                foreach (var filter in request.Filters)
+                if (request != null)
                 {
-                    query = ProductHelper.ApplyFilter(query, filter);
+                    if (request.Filters != null)
+                    {
+                        foreach (var filter in request.Filters)
+                        {
+                            query = ProductHelper.ApplyFilter(query, filter);
+                        }
+                    }
+
+                    if (request.SortOrders != null)
+                    {
+                        // Apply sort
+                        query = SortHelper.ApplySort(query, request.SortOrders);
+                    }
                 }
 
-                // Apply sort
-                var sortedQuery = SortHelper.ApplySort(query, request.SortOrders);
-
-                return await sortedQuery.ToListAsync();
+                return await query.ToListAsync();
             }
         }
 
