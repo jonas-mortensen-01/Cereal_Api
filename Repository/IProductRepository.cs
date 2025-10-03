@@ -9,7 +9,7 @@ namespace Cereal_Api.Repositories
     public interface IProductRepository
     {
         // Retrieves the entire dataset or a single row if an id is passed
-        Task<IEnumerable<ProductDTO>> GetAsync(FilterRequest request, Guid? id = null);
+        Task<IEnumerable<ProductDTO>> GetAsync(RequestContext request, Guid? id = null);
 
         // Retrieves the image data for a single product
         ProductImageDTO GetProductImageAsync(Guid id);

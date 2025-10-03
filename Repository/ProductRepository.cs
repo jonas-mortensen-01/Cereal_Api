@@ -22,7 +22,7 @@ namespace Cereal_Api.Repositories
         // Gets a product by id if no id is passed it gets all products
         // Request is filters wrapped for easier understanding when creating the json to pass in the request
         // Filters work dynamically meaning they are defined by the database and what fields are available not the code
-        public async Task<IEnumerable<ProductDTO>> GetAsync(FilterRequest request, Guid? id = null)
+        public async Task<IEnumerable<ProductDTO>> GetAsync(RequestContext request, Guid? id = null)
         {
             if (id != null)
             {
@@ -48,7 +48,7 @@ namespace Cereal_Api.Repositories
         public ProductImageDTO GetProductImageAsync(Guid id)
         {
             var result = _context.ProductImageTable.Where(c => c.ProductReference == id).FirstOrDefault();
-            return result;
+            return result ?? new ProductImageDTO();
         }
 
 

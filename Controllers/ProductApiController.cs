@@ -54,7 +54,7 @@ namespace MyApi.Controllers
         [ProducesResponseType<IEnumerable<Product>>(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("get")]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery] string? request, Guid? id = null)
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromJsonQueryRequestContext] RequestContext request, Guid? id = null)
         {
             try
             {
@@ -63,13 +63,7 @@ namespace MyApi.Controllers
                     PropertyNameCaseInsensitive = true
                 };
 
-                var deserializedRequest = new FilterRequest();
-                if (request != null)
-                    deserializedRequest = JsonSerializer.Deserialize<FilterRequest>(request, options)
-                                         ?? new FilterRequest();
-
-                var products = await _repository.GetAsync(deserializedRequest, id);
-
+                var products = await _repository.GetAsync(request, id);
                 var mappedProducts = ProductHelper.MapProductsFromDTOList(products);
 
                 return Ok(mappedProducts);
