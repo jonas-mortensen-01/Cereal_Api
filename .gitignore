@@ -45,3 +45,12 @@ Migrations/
 # Ignore appsettings secrets
 appsettings.Development.json
 appsettings.json
+
+# Ignore user-specific files
+*.user
+*.suo
+*.vs/
+
+# Ignore Debug and Release folders
+**/Debug/
+**/Release/
