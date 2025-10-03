@@ -85,7 +85,7 @@ namespace MyApi.Controllers
             Parameters:<br><br>
             - id: The id of the product that the image is attached to
             ")]
-        [ProducesResponseType<IEnumerable<ProductImage>>(StatusCodes.Status200OK)]
+        [ProducesResponseType<ProductImage>(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("get/image")]
         public ActionResult<ProductImage> GetProductImageAsync(Guid id)
