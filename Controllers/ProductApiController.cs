@@ -46,7 +46,6 @@ namespace MyApi.Controllers
             If none is specified it will fetch all products instead<br><br>
             - request: Holds the filters for the request<br>
             It takes an object containing a list of filters like this<br>
-            the object should be url encrypted as a json string and passed in the query<br>
             {<br>
                 'filters': [{ 'field':'Sodium', 'operator':'==', 'value':'140' }]<br>
                 'sortOrders': [{ 'field':'Calories', 'direction': 'asc' }]<br>
