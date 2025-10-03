@@ -45,7 +45,8 @@ namespace MyApi.Controllers
             Parameters:<br><br>
             - id: The id of the product to fetch<br>
             If none is specified it will fetch all products instead<br><br>
-            - request: Holds the filters for the request<br>
+            - request: Holds the filters and sort orders<br>
+            for the request multiple of each may be passed<br>
             It takes an object containing a list of filters like this<br>
             {<br>
                 'filters': [{ 'field':'Sodium', 'operator':'==', 'value':'140' }]<br>
