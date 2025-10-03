@@ -19,6 +19,18 @@ namespace MyApi.Controllers
     {
         private readonly IProductRepository _repository;
 
+        // Basic api controller
+        // These fetch their relevant data in the form of ProductDTO and ProductImageDTO models
+        // then maps them to models like Product or ProductImage
+        // This is done to seperate the data needed for serving to a frontend application
+        // from the data needed to communicate with a database.
+        // It will also allow easier configuration of the fields and mapping for data sent to the frontend
+        // Ex a lightweight model or a Product that does not initially contain an image but an image reference
+        // where we then map that image to a Product
+
+        // Additionally we use a seperate ProductUpdateDTO to further seperate models
+        // this is to allow some later mapping of the products to add additional data 
+        // not otherwise needed initially for the frontend
         public ProductApiController(IProductRepository repository)
         {
             _repository = repository;
@@ -67,6 +79,7 @@ namespace MyApi.Controllers
         }
 
         // Gets an product image by product id
+        // Gets an ProductImageDTO to map to a ProductImage to return
         [EndpointSummary("Gets an product image")]
         [EndpointDescription(@"Retrieves the image for a product<br><br>
             Parameters:<br><br>
@@ -79,8 +92,10 @@ namespace MyApi.Controllers
         {
             try
             {
+                // Retrieves an image DTO model
                 var image = _repository.GetProductImageAsync(id);
 
+                // Maps the retrieved image to a full model to serve for the frontend
                 var mappedImage = ImageHelper.MapImageFromDTO(image);
 
                 return Ok(mappedImage);
@@ -114,6 +129,7 @@ namespace MyApi.Controllers
         {
             try
             {
+                // Runs the update function on all items passed in the parameter
                 await _repository.UpdateAsync(items);
                 return Ok();
             }
@@ -137,6 +153,7 @@ namespace MyApi.Controllers
         {
             try
             {
+                // Runs the create function on all items passed in the parameter
                 await _repository.CreateAsync(items);
                 return Ok();
             }
@@ -159,6 +176,7 @@ namespace MyApi.Controllers
         {
             try
             {
+                // Runs the delete function on all non null ids passed in the parameter
                 await _repository.DeleteAsync(
                     ids.Select(i => i).Where(v => v != Guid.Empty).ToList());
                 return Ok();
@@ -168,40 +186,5 @@ namespace MyApi.Controllers
                 throw new Exception("An error occurred while deleting products.", ex);
             }
         }
-
-        // [HttpPost("update")]
-        // public async Task<ActionResult<string>> UpdateRows([FromBody] IEnumerable<ProductUpdateDTO> items)
-        // {
-        //     if (items == null || !items.Any())
-        //         return BadRequest("No items provided.");
-
-        //     var resultList = new List<ProductDTO>();
-
-        //     // Split items into batches
-        //     var toDelete = items.Where(i => i.Id.HasValue && i.Delete == true).ToList();
-        //     var toUpdate = items.Where(i => i.Id.HasValue && i.Delete != true).ToList();
-        //     var toCreate = items.Where(i => !i.Id.HasValue).ToList();
-
-        //     // Batch delete
-        //     if (toDelete.Count > 0)
-        //     {
-        //         var deleted = await _repository.DeleteAsync(
-        //             toDelete.Select(i => i.Id.GetValueOrDefault()).Where(v => v != Guid.Empty).ToList());
-        //     }
-
-        //     // Batch update
-        //     if (toUpdate.Count > 0)
-        //     {
-        //         var updated = await _repository.UpdateAsync(toUpdate);
-        //     }
-
-        //     // Batch create
-        //     if (toCreate.Count > 0)
-        //     {
-        //         var created = await _repository.CreateAsync(toCreate);
-        //     }
-
-        //     return Ok(resultList);
-        // }
     }
 }
