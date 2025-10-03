@@ -25,6 +25,5 @@ namespace Cereal_Api.Models.DTO {
         public double? Weight { get; set; }
         public double? Cups { get; set; }
         public double? Rating { get; set; }
-        public bool? Delete { get; set; }
     }
 }

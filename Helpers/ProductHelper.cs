@@ -78,6 +78,19 @@ namespace Cereal_Api.Helpers
             };
         }
 
+        public static IEnumerable<Product> MapProductsFromDTOList(IEnumerable<ProductDTO> dtoList)
+        {
+            List<Product> result = new List<Product>();
+
+            foreach (ProductDTO item in dtoList)
+            {
+                var resultItem = MapProductFromDTO(item);
+                if (resultItem != null) result.Add(resultItem);
+            }
+
+            return result;
+        }
+
         public static ProductDTO? MapDTOForCRUD(this ProductUpdateDTO dto)
         {
             if (dto == null) return null;

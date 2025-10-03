@@ -21,19 +21,23 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 var app = builder.Build();
 
-app.UseMiddleware<ApiKeyMiddleware>();
+// For testing purposes
+// Scalar doesn't allow configuring all requests with the api key for authentication
+// so the middleware is disabled if we are in development
+if (app.Environment.IsProduction())
+{
+    app.UseMiddleware<ApiKeyMiddleware>();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    var yamlPath = Path.Combine(AppContext.BaseDirectory, "cereal-api.yaml");
-
     app.MapOpenApi();
     app.MapScalarApiReference("/docs", options =>
     {
         options.WithTitle("Cereal API Documentation")
-               .WithDarkMode(true)
-               .WithSidebar(true);
+            .WithDarkMode(true)
+            .WithSidebar(true);
     });
 }
 
