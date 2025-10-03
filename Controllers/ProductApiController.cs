@@ -39,7 +39,7 @@ namespace MyApi.Controllers
         // Get endpoint has been set to post for the reasons
         // body json parameters can't be used on get requests
         // post requests allow this and in turn lets us make dynamic filtering using the function displayed below
-        [EndpointSummary("Gets products")]
+        [EndpointSummary("Get Product")]
         [EndpointDescription(@"Retrieves one or multiple products<br><br>
             Parameters:<br><br>
             - id: The id of the product to fetch<br>
@@ -76,7 +76,7 @@ namespace MyApi.Controllers
 
         // Gets an product image by product id
         // Gets an ProductImageDTO to map to a ProductImage to return
-        [EndpointSummary("Gets an product image")]
+        [EndpointSummary("Get Product Image")]
         [EndpointDescription(@"Retrieves the image for a product<br><br>
             Parameters:<br><br>
             - id: The id of the product that the image is attached to
@@ -109,7 +109,7 @@ namespace MyApi.Controllers
         // If an Guid is passed in the object it will attempt to update the associated object 
         // on the fields that are passed with it / ex guid and name are passed it will attempt to update name on the row with that guid 
         // if no guid is passed it will take the object passed as a new row and attempt to add it to the dataset
-        [EndpointSummary("Updates products")]
+        [EndpointSummary("Update Product")]
         [EndpointDescription(@"Updates one or multiple products<br><br>
             Parameters:<br><br>
             - items: A list of mapped products<br><br>
@@ -135,7 +135,7 @@ namespace MyApi.Controllers
             }
         }
 
-        [EndpointSummary("Creates products")]
+        [EndpointSummary("Create Product")]
         [EndpointDescription(@"Creates one or more products<br><br>
             Parameters:<br><br>
             - items: A list of mapped products<br><br>
@@ -159,7 +159,7 @@ namespace MyApi.Controllers
             }
         }
 
-        [EndpointSummary("Deletes products")]
+        [EndpointSummary("Delete Product")]
         [EndpointDescription(@"Deletes one or more products<br><br>
             Parameters:<br><br>
             - ids: A list of ids<br><br>
