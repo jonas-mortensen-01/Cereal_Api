@@ -38,7 +38,10 @@ namespace Cereal_Api.Repositories
                     query = ProductHelper.ApplyFilter(query, filter);
                 }
 
-                return await query.ToListAsync();
+                // Apply sort
+                var sortedQuery = SortHelper.ApplySort(query, request.SortOrders);
+
+                return await sortedQuery.ToListAsync();
             }
         }
 
