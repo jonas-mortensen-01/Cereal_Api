@@ -1,6 +1,7 @@
 Project Title: Cereal Api
 
 Description: This project has been made using C# and Scalar
+If testing using the scalar UI the api key for authentication will automatically be provided
 
 How to run:
 
