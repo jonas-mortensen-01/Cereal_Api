@@ -1,6 +1,8 @@
 Project Title: Cereal Api
 
 Description: This project has been made using C# and Scalar
+The documentation for this project is rendered using the Scalar ui
+please run the project for full documentation and testing purposes
 
 How to run:
 
