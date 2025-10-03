@@ -6,7 +6,7 @@ using System.Text.Json;
 public class FromJsonQueryRequestContextAttribute : ModelBinderAttribute
 {
     public FromJsonQueryRequestContextAttribute() 
-        : base(typeof(JsonQueryModelBinder<RequestContext>)) // closed generic type
+        : base(typeof(JsonQueryModelBinder<RequestContext>))
     {
         BindingSource = BindingSource.Query;
     }

@@ -12,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddEndpointsApiExplorer();
 
+// Configures the converter for handling Enums contained within url encrypted json strings
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(
@@ -22,6 +23,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     );
 });
 
+// Initial database connection setup
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -39,9 +41,9 @@ if (app.Environment.IsProduction())
     app.UseMiddleware<ApiKeyMiddleware>();
 }
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    // Maps and creates a scalar api reference
     app.MapOpenApi();
     app.MapScalarApiReference("/docs", options =>
     {

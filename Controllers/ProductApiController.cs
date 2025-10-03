@@ -17,6 +17,7 @@ namespace MyApi.Controllers
     [Route("api/product")]
     public class ProductApiController : ControllerBase
     {
+        // Initializes the product repository for access to relevant functions
         private readonly IProductRepository _repository;
 
         // Basic api controller
@@ -102,8 +103,6 @@ namespace MyApi.Controllers
             }
         }
 
-
-
         // Is used to create or update rows
         // Used by passing collection objects of type ProductUpdate 
         // If an Guid is passed in the object it will attempt to update the associated object 
@@ -135,6 +134,7 @@ namespace MyApi.Controllers
             }
         }
 
+        // Creates one or more products from a list of ProductUpdateDTO objects
         [EndpointSummary("Create Product")]
         [EndpointDescription(@"Creates one or more products<br><br>
             Parameters:<br><br>
@@ -159,6 +159,7 @@ namespace MyApi.Controllers
             }
         }
 
+        // Deletes one or more products based of a list of guids
         [EndpointSummary("Delete Product")]
         [EndpointDescription(@"Deletes one or more products<br><br>
             Parameters:<br><br>

@@ -10,8 +10,10 @@ using Cereal_Api.Models;
 
 namespace Cereal_Api.Repositories
 {
+    // Contains all functionality related to communication with the database
     public class ProductRepository : IProductRepository
     {
+        // The context holds the tables containing data from our database
         private readonly ApplicationDbContext _context;
 
         public ProductRepository(ApplicationDbContext context)
@@ -45,6 +47,7 @@ namespace Cereal_Api.Repositories
             }
         }
 
+        // Fetches an product image by id returns and empty object upon no image found
         public ProductImageDTO GetProductImageAsync(Guid id)
         {
             var result = _context.ProductImageTable.Where(c => c.ProductReference == id).FirstOrDefault();
@@ -117,7 +120,7 @@ namespace Cereal_Api.Repositories
             };
         }
 
-        // Deletes rows based on list of id's or names
+        // Deletes rows based on list of id's
         public async Task<OperationResult> DeleteAsync(IEnumerable<Guid> toDelete)
         {
             // Filters away all items to delete where the id isn't set
