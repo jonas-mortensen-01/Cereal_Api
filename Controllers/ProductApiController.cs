@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 namespace MyApi.Controllers
 {
     [ApiController]
-    
+
     [Route("api/product")]
     public class ProductApiController : ControllerBase
     {
@@ -49,8 +49,14 @@ namespace MyApi.Controllers
             for the request multiple of each may be passed<br>
             It takes an object containing a list of filters like this<br>
             {<br>
-                'filters': [{ 'field':'Sodium', 'operator':'==', 'value':'140' }]<br>
-                'sortOrders': [{ 'field':'Calories', 'direction': 'asc' }]<br>
+                ""filters"": [<br>
+                    { ""field"": ""Sodium"", ""operator"": "">"", ""value"": ""250"" }<br>
+                ],<br>
+                ""sortOrders"": <br>
+                [<br>
+                    { ""field"": ""Sodium"", ""direction"": ""asc"" },<br>
+                    { ""field"": ""Calories"", ""direction"": ""asc"" }<br>
+                ]<br>
             }
             ")]
         [ProducesResponseType<IEnumerable<Product>>(StatusCodes.Status200OK)]
