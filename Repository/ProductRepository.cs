@@ -6,6 +6,7 @@ using Cereal_Api.Data;
 using Cereal_Api.Helpers;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Cereal_Api.Models;
 
 namespace Cereal_Api.Repositories
 {
@@ -40,6 +41,13 @@ namespace Cereal_Api.Repositories
                 return await query.ToListAsync();
             }
         }
+
+        public ProductImageDTO GetProductImageAsync(Guid id)
+        {
+            var result = _context.ProductImageTable.Where(c => c.ProductReference == id).FirstOrDefault();
+            return result;
+        }
+
 
         // Creates new row based of a ProductDTO instance
         public async Task<OperationResult> CreateAsync(IEnumerable<ProductUpdateDTO> toCreate)

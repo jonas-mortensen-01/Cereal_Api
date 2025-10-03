@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cereal_Api.Models;
 using Cereal_Api.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,9 @@ namespace Cereal_Api.Repositories
     {
         // Retrieves the entire dataset or a single row if an id is passed
         Task<IEnumerable<ProductDTO>> GetAsync(FilterRequest request, Guid? id = null);
+
+        // Retrieves the image data for a single product
+        ProductImageDTO GetProductImageAsync(Guid id);
 
         // Creates new row based of a CerealDTO instance
         Task<OperationResult> CreateAsync(IEnumerable<ProductUpdateDTO> toCreate);

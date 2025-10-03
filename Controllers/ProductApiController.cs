@@ -8,6 +8,7 @@ using Cereal_Api.Models.DTO;
 using Cereal_Api.Repositories;
 using System.Text.Json;
 using Cereal_Api.Helpers;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 
 namespace MyApi.Controllers
 {
@@ -65,6 +66,31 @@ namespace MyApi.Controllers
             }
         }
 
+        // Gets an product image by product id
+        [EndpointSummary("Gets an product image")]
+        [EndpointDescription(@"Retrieves the image for a product<br><br>
+            Parameters:<br><br>
+            - id: The id of the product that the image is attached to
+            ")]
+        [ProducesResponseType<IEnumerable<Product>>(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpGet("get/image")]
+        public ActionResult<ProductImage> GetProductImageAsync(Guid id)
+        {
+            try
+            {
+                var image = _repository.GetProductImageAsync(id);
+
+                var mappedImage = ImageHelper.MapImageFromDTO(image);
+
+                return Ok(mappedImage);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while fetching product image.", ex);
+            }
+        }
+
 
 
         // Is used to create or update rows
@@ -93,7 +119,7 @@ namespace MyApi.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occurred while fetching products.", ex);
+                throw new Exception("An error occurred while updating products.", ex);
             }
         }
 
@@ -116,7 +142,7 @@ namespace MyApi.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occurred while fetching products.", ex);
+                throw new Exception("An error occurred while creating products.", ex);
             }
         }
 
@@ -139,7 +165,7 @@ namespace MyApi.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception("An error occurred while fetching products.", ex);
+                throw new Exception("An error occurred while deleting products.", ex);
             }
         }
 
