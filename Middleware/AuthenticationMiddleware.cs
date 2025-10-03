@@ -19,7 +19,8 @@ public class ApiKeyMiddleware
         // Skip middleware for Swagger and Scalar docs
         if (context.Request.Path.StartsWithSegments("/docs") ||
             context.Request.Path.StartsWithSegments("/swagger") ||
-            context.Request.Path.StartsWithSegments("/openapi"))
+            context.Request.Path.StartsWithSegments("/openapi") ||
+            context.Request.Path.StartsWithSegments("/get"))
         {
             await _next(context);
             return;
