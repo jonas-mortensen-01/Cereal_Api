@@ -14,7 +14,10 @@ How to run:
   to get a working database for the program to run with
 
   After the database has been created go back to visual studio code 
-  start a new git-bash terminal and enter the following "dotnet run"
+  start a new git-bash terminal and enter the following 
+  "dotnet add package Scalar.AspNetCore"
+  then run this line to start the program once the last command is done running
+  "dotnet run"
   It will then display a link to a locally hosted instance you can follow to the browser
 
 Version History:
